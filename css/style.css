@@ -25,15 +25,17 @@ body {
 }
 
 .moreIndicator {
-	clear: both;
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
 	height: 50px;
 	width: 50px;
 	z-index: 10000;
 	opacity: .8;
-	top: 0px;
+	bottom: 10px;
+	position: absolute;
+	display: block;
+	margin: auto;
+	left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .thumbnail {
