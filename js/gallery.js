@@ -15,6 +15,10 @@
 
 animate();
 
+
+
+
+
 var mLastFrameTime = 0;
 var mWaitTime = 5000; //time in ms
 function animate() {
@@ -26,13 +30,40 @@ function animate() {
 
 	if ((currentTime - mLastFrameTime) > mWaitTime) {
 		swapPhoto();
+
 		mLastFrameTime = currentTime;
 	}
 }
 
-/************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
+
+
+/************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
+//needs a counter 
+mCurrentIndex = 0;
+if(mCurrentIndex == mImages.length - 1){
+	mCurrentIndex = 0;
+}
 function swapPhoto() {
+	
+	var newSource = mImages[mCurrentIndex].location;
+	document.getElementById('slideShow').src 
+	= 'newSource';
+	
+
+	mCurrentIndex++;
+
+
+//update div.details information
+	var info = document.getElementByClass('location').innerHTML;
+	var loca = info[0].innerHTML = //array elements?;
+	var desc = info[1].innerHTML;
+	var date = info[2].innerHTML;
+
+	var newLocation;
+	var newDescription;
+	var newDate;
+
 	//Add code here to access the #slideShow element.
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
@@ -47,11 +78,17 @@ var mCurrentIndex = 0;
 var mRequest = new XMLHttpRequest();
 mRequest.open('GET','images.json',true);
 mRequest.onload = function(){
-	var data = mRequest.responseText;
+	var jsonData = mRequest.responseText;
 }
 mRequest.send();
 // Array holding GalleryImage objects (see below).
 var mImages = [];
+for (var i = 0; i >= jsonData.length-1 ; i++) {
+	var newImage = GalleryImage(jsonData[i].imgLocation, jsonData[i].description
+		, jsonData[i].date, jsonData[i].imgPath);
+	mImages.push(newImage);
+}
+
 
 // Holds the retrived JSON information
 
