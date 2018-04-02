@@ -25,12 +25,20 @@ body {
 }
 
 .moreIndicator {
+	clear: both;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
 	height: 50px;
 	width: 50px;
-	position: absolute;
-	z-index: 3;
+	z-index: 10000;
 	opacity: .8;
 	top: 0px;
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .thumbnail {
