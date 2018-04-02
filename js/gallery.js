@@ -40,25 +40,24 @@ function animate() {
 
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 //needs a counter 
-mCurrentIndex = 0;
+
+// Counter for the mImages array
+var mCurrentIndex = 0;
+
+//Do not let counter exceed the size of mImages array
 if(mCurrentIndex == mImages.length - 1){
 	mCurrentIndex = 0;
 }
+
+
+
 function swapPhoto() {
-	
-	var newSource = mImages[mCurrentIndex].imgPath;
-	document.getElementById('slideShow').src 
-	= newSource;
-	
-
+	document.getElementById("photo").src = mImages[mCurrentIndex].imgPath;
 	mCurrentIndex++;
-
-
-//update div.details information
-
-	document.getElementByClass('location').innerHTML = mImages[mCurrentIndex].imgLocation;
-	document.getElementByClass('description').innerHTML = mImages[mCurrentIndex].description;
-	document.getElementByClass('date').innerHTML = mImages[mCurrentIndex].date;
+	//update div.details information
+	var loca = document.getElementByClass("location").innerHTML = "Location: " + mImages[mCurrentIndex].imgLocation;
+	document.getElementByClass("description").innerHTML = "Description: " + mImages[mCurrentIndex].description;
+	document.getElementByClass("date").innerHTML = "Date: " + mImages[mCurrentIndex].date;
 
 	//Add code here to access the #slideShow element.
 	//Access the img element and replace its source
@@ -67,8 +66,6 @@ function swapPhoto() {
 	console.log('swap photo');
 }
 
-// Counter for the mImages array
-var mCurrentIndex = 0;
 
 // XMLHttpRequest variable
 function reqListener () {
