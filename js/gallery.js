@@ -45,16 +45,17 @@ var mCurrentIndex = 0;
 
 // XMLHttpRequest variable
 var mRequest = new XMLHttpRequest();
-mRequest.onload = reqListener;
-mRequest.open("images.json");
+mRequest.open('GET','images.json',true);
+mRequest.onload = function(){
+	var data = mRequest.responseText;
+}
 mRequest.send();
-
 // Array holding GalleryImage objects (see below).
 var mImages = [];
 
 // Holds the retrived JSON information
 
-var mJson = JSON.stringify("images.JSON");
+var mJson = '{""}';
 
 
 // URL for the JSON to load by default
