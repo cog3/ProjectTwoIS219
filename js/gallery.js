@@ -45,12 +45,17 @@ var mCurrentIndex = 0;
 
 // XMLHttpRequest variable
 var mRequest = new XMLHttpRequest();
+mRequest.onload = reqListener;
+mRequest.open("images.json");
+mRequest.send();
 
 // Array holding GalleryImage objects (see below).
 var mImages = [];
 
 // Holds the retrived JSON information
-var mJson;
+
+var mJson = JSON.stringify("images.JSON");
+
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
@@ -79,7 +84,11 @@ window.addEventListener('load', function() {
 
 }, false);
 
-function GalleryImage() {
+function GalleryImage(location, description, date, img) {
+	this.location = location;
+	this.description = description;
+	this.date = date;
+	this.img = img;
 	//implement me as an object to hold the following data about an image:
 	//1. location where photo was taken
 	//2. description of photo
@@ -90,12 +99,4 @@ function GalleryImage() {
 
 
 	};	
-var GalleryImage = {
-	function addImage(location, description, date, img){
-		
-	}
-
-
-
-	
 }
