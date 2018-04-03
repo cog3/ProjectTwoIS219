@@ -45,13 +45,15 @@ mRequest.onreadystatechange = function() {
 				mCurrentIndex = 0;
 			}
 			function swapPhoto() {
+				//var element = document.getElementsByClassName("location")[0];
 				document.getElementsByClassName("thumbnail")[0].src = mImages[mCurrentIndex].img;
 				console.log(mImages[mCurrentIndex].img);
+				//console.log(element);
 	
 							//update div.details information
-				//document.getElementByClassName("location").innerHTML = "Location: " + mImages[mCurrentIndex].location;
-				//document.getElementByClassName("description").innerHTML = "Description: " + mImages[mCurrentIndex].description;
-				//document.getElementByClassName("date").innerHTML = "Date: " + mImages[mCurrentIndex].date;
+				document.getElementById("location").innerHTML = "Location: " + mImages[mCurrentIndex].location;
+				document.getElementById("description").innerHTML = "Description: " + mImages[mCurrentIndex].description;
+				document.getElementById("date").innerHTML = "Date: " + mImages[mCurrentIndex].date;
 
 							//Add code here to access the #slideShow element.
 							//Access the img element and replace its source
