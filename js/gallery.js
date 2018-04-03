@@ -41,9 +41,6 @@ mRequest.onreadystatechange = function() {
 
 
 			var mCurrentIndex = 0;
-			if(mCurrentIndex == mImages.length - 1){
-				mCurrentIndex = 0;
-			}
 			function swapPhoto() {
 				//var element = document.getElementsByClassName("location")[0];
 				document.getElementsByClassName("thumbnail")[0].src = mImages[mCurrentIndex].img;
@@ -75,6 +72,9 @@ mRequest.onreadystatechange = function() {
 				if ((currentTime - mLastFrameTime) > mWaitTime) {
 					swapPhoto();
 					mCurrentIndex++;
+					if(mCurrentIndex == mImages.length-1){
+						mCurrentIndex = 0;
+					}
 					mLastFrameTime = currentTime;
 				}
 			}
@@ -96,12 +96,22 @@ mRequest.onreadystatechange = function() {
 
 
 				$( "#nextPhoto" ).click(function() {
-					swapPhoto()
 					mCurrentIndex++;
+					swapPhoto();
+					if(mCurrentIndex == mImages.length-1){
+						mCurrentIndex = 0;
+					}
+					
 				});
 				$( "#prevPhoto" ).click(function() {
 					mCurrentIndex--;
-					swapPhoto()
+					swapPhoto();
+					if(mCurrentIndex == mImages.length-1){
+						mCurrentIndex = 0;
+					}
+					if(mCurrentIndex < 0){
+						mCurrentIndex = mImages.length;
+					}
 					
 				});
 			});
