@@ -16,92 +16,92 @@
 animate();
 
 
-
-
-
-var mLastFrameTime = 0;
-var mWaitTime = 5000; //time in ms
-function animate() {
-    requestAnimFrame( animate );
-	var currentTime = new Date().getTime();
-	if (mLastFrameTime === 0) {
-		mLastFrameTime = currentTime;
-	}
-
-	if ((currentTime - mLastFrameTime) > mWaitTime) {
-		swapPhoto();
-
-		mLastFrameTime = currentTime;
-	}
-}
-
-
-
-
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
-//needs a counter 
 
-// Counter for the mImages array
-var mCurrentIndex = 0;
-
-//Do not let counter exceed the size of mImages array
-if(mCurrentIndex == mImages.length - 1){
-	mCurrentIndex = 0;
+function GalleryImage (location, description, date, img) {
+	this.location = location;
+	this.description = description;
+	this.date = date;
+	this.img = img;
 }
 
-
-
-function swapPhoto() {
-	document.getElementById("photo").src = mImages[mCurrentIndex].imgPath;
-	mCurrentIndex++;
-	//update div.details information
-	var loca = document.getElementByClass("location").innerHTML = "Location: " + mImages[mCurrentIndex].imgLocation;
-	document.getElementByClass("description").innerHTML = "Description: " + mImages[mCurrentIndex].description;
-	document.getElementByClass("date").innerHTML = "Date: " + mImages[mCurrentIndex].date;
-
-	//Add code here to access the #slideShow element.
-	//Access the img element and replace its source
-	//with a new image from your images array which is loaded 
-	//from the JSON string
-	console.log('swap photo');
-}
-
-
-// XMLHttpRequest variable
-function reqListener () {
-	console.log(this.responseText);
-}
-
+var mURL = "images.json";
 var mRequest = new XMLHttpRequest();
-var url = "images.json";
-mRequest.addEventListener("load", reqListener);
-mRequest.open("GET",url,true);
+mRequest.onreadystatechange = function() {
+	if (mRequest.readyState == 4 && mRequest.status == 200) {
+		try {
+			var mJson = JSON.parse(mRequest.responseText);
+			console.log(mJson.images);
+			var mImages = [];
+			for (var i = 0; i <  mJson.images.length; i++) {
+				var newImage = new GalleryImage(mJson.images[i].imgLocation, mJson.images[i].description
+					, mJson.images[i].date, mJson.images[i].imgPath);
+				mImages.push(newImage);
+			}
+
+
+			var mCurrentIndex = 0;
+			if(mCurrentIndex == mImages.length - 1){
+				mCurrentIndex = 0;
+			}
+
+			function swapPhoto() {
+				document.getElementByClass("thumbnail").src = mImages[mCurrentIndex].img;
+				
+				//update div.details information
+				document.getElementByClass("location").innerHTML = "Location: " + mImages[mCurrentIndex].location;
+				document.getElementByClass("description").innerHTML = "Description: " + mImages[mCurrentIndex].description;
+				document.getElementByClass("date").innerHTML = "Date: " + mImages[mCurrentIndex].date;
+
+				//Add code here to access the #slideShow element.
+				//Access the img element and replace its source
+				//with a new image from your images array which is loaded 
+				//from the JSON string
+				mCurrentIndex++;
+				console.log('swap photo');
+			}
+ 			$(document).ready(function() {
+				$( ".moreIndicator" ).click(function() {
+  					if ( $( ".moreIndicator" ).hasClass("rot90") ) {
+						$( ".moreIndicator" ).addClass("rot270").removeClass("rot90");
+						$(".details").fadeToggle(800);
+					}
+  		 			else {
+  						$( ".moreIndicator" ).addClass("rot90");
+  						$( ".moreIndicator" ).removeClass("rot270");
+  						$(".details").fadeToggle(800);
+  					}
+					});
+			});
+
+
+
+
+
+		
+		}catch(err) {
+			console.log(err.message)
+		}
+	}
+};
+
+mRequest.open("GET",mURL, true);
 mRequest.send();
 
-xmlhttp.onreadystatechange = function() {
-	if (mRequest.readyState == 4 && mRequest.status == 200) {
-	    try{
-	    	var mJson = JSON.parse(mRequest.responseText);
-	    }
-	    catch(err){
-	    	console.log(err.message);
-	    }
-	}
-}
-
-
-
-
-
-
 // Array holding GalleryImage objects (see below).
-var mImages = [];
-for (var i = 0; i <  mJson.length-1 ; i++) {
-	var newImage = new GalleryImage(mJson[i].imgLocation, mJson[i].description
-		, mJson[i].date, mJson[i].imgPath);
-	mImages.push(newImage);
-}
-console.log(mImages.length);
+
+// Counter for the mImages array
+
+
+//Do not let counter exceed the size of mImages array
+
+
+
+
+
+
+
+
 
 // Holds the retrived JSON information
 
@@ -110,7 +110,7 @@ console.log(mImages.length);
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl = 'insert_url_here_to_image_json';
+var mUrl = 'images.json';
 
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
@@ -135,14 +135,34 @@ window.addEventListener('load', function() {
 
 }, false);
 
-	function GalleryImage (location, description, date, img) {
-		this.location = location;
-		this.description = description;
-		this.date = date;
-		this.img = img;
-		this.getInfo = function(){
-			return this.location + " " + this.description
-			+ " " + this.date + " " + this.img;
-		}
+
+
+
+
+
+var indicator = document.getElementByClass("moreIndicator rot90");
+
+indicator.onclick = function(){
+	if(indicator.className == "rot270"){
+		indicator.className
+	}
+}
+
+
+
+
+var mLastFrameTime = 0;
+var mWaitTime = 5000; //time in ms
+function animate() {
+    requestAnimFrame( animate );
+	var currentTime = new Date().getTime(); 
+	if (mLastFrameTime === 0) {
+		mLastFrameTime = currentTime;
+	}
+
+	if ((currentTime - mLastFrameTime) > mWaitTime) {
+		swapPhoto();
+
+		mLastFrameTime = currentTime;
 	}
 }
