@@ -60,8 +60,17 @@ body {
 }
 
 #nextPhoto {
+	float: right;
 	height: 42px;
 	width: 42px;
+}
+
+#prevPhoto:hover{
+	opacity: .8;
+}
+
+#nextPhoto:hover{
+	opacity: .8;
 }
 
 .details p {
