@@ -13,7 +13,7 @@
 
 // example code from mr doob : http://mrdoob.com/lab/javascript/requestanimationframe/
 
-animate();
+
 
 
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
@@ -44,22 +44,41 @@ mRequest.onreadystatechange = function() {
 			if(mCurrentIndex == mImages.length - 1){
 				mCurrentIndex = 0;
 			}
-
 			function swapPhoto() {
-				document.getElementByClass("thumbnail").src = mImages[mCurrentIndex].img;
-				
-				//update div.details information
-				document.getElementByClass("location").innerHTML = "Location: " + mImages[mCurrentIndex].location;
-				document.getElementByClass("description").innerHTML = "Description: " + mImages[mCurrentIndex].description;
-				document.getElementByClass("date").innerHTML = "Date: " + mImages[mCurrentIndex].date;
+				document.getElementsByClassName("thumbnail")[0].src = mImages[mCurrentIndex].img;
+				console.log(mImages[mCurrentIndex].img);
+	
+							//update div.details information
+				//document.getElementByClassName("location").innerHTML = "Location: " + mImages[mCurrentIndex].location;
+				//document.getElementByClassName("description").innerHTML = "Description: " + mImages[mCurrentIndex].description;
+				//document.getElementByClassName("date").innerHTML = "Date: " + mImages[mCurrentIndex].date;
 
-				//Add code here to access the #slideShow element.
-				//Access the img element and replace its source
-				//with a new image from your images array which is loaded 
-				//from the JSON string
-				mCurrentIndex++;
+							//Add code here to access the #slideShow element.
+							//Access the img element and replace its source
+							//with a new image from your images array which is loaded 
+							//from the JSON string
 				console.log('swap photo');
 			}
+			
+
+			var mLastFrameTime = 0;
+			var mWaitTime = 5000; //time in ms
+			function animate() {
+	    		requestAnimFrame( animate );
+				var currentTime = new Date().getTime(); 
+				if (mLastFrameTime === 0) {
+					mLastFrameTime = currentTime;
+				}
+
+				if ((currentTime - mLastFrameTime) > mWaitTime) {
+					swapPhoto();
+					mCurrentIndex++;
+					mLastFrameTime = currentTime;
+				}
+			}
+
+			animate();
+
  			$(document).ready(function() {
 				$( ".moreIndicator" ).click(function() {
   					if ( $( ".moreIndicator" ).hasClass("rot90") ) {
@@ -72,12 +91,23 @@ mRequest.onreadystatechange = function() {
   						$(".details").fadeToggle(800);
   					}
 					});
+
+
+				$( "#nextPhoto" ).click(function() {
+					swapPhoto()
+					mCurrentIndex++;
+				});
+				$( "#prevPhoto" ).click(function() {
+					mCurrentIndex--;
+					swapPhoto()
+					
+				});
 			});
 
 
 
 
-
+		
 		
 		}catch(err) {
 			console.log(err.message)
@@ -134,35 +164,3 @@ window.addEventListener('load', function() {
 	console.log('window loaded');
 
 }, false);
-
-
-
-
-
-
-var indicator = document.getElementByClass("moreIndicator rot90");
-
-indicator.onclick = function(){
-	if(indicator.className == "rot270"){
-		indicator.className
-	}
-}
-
-
-
-
-var mLastFrameTime = 0;
-var mWaitTime = 5000; //time in ms
-function animate() {
-    requestAnimFrame( animate );
-	var currentTime = new Date().getTime(); 
-	if (mLastFrameTime === 0) {
-		mLastFrameTime = currentTime;
-	}
-
-	if ((currentTime - mLastFrameTime) > mWaitTime) {
-		swapPhoto();
-
-		mLastFrameTime = currentTime;
-	}
-}
